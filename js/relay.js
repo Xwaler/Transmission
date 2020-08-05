@@ -2,7 +2,7 @@ class Relay extends Transmitter {
     constructor(x, y) {
         super(x, y, relayRadius);
         this.consumption = 0;
-        this.lastShot = Date.now();
+        this.lastShot = gameTick;
     }
 
     attack(enemy) {
@@ -14,8 +14,7 @@ class Relay extends Transmitter {
 
     update() {
         super.update();
-        let now = Date.now();
-        if (now - this.lastShot >= shotCooldown) {
+        if (gameTick - this.lastShot >= shotCooldown) {
             let energy_available = null;
             for (let energy of this.energy_entities) {
                 if (energy.destination === null) {
@@ -30,7 +29,7 @@ class Relay extends Transmitter {
 
                     if (energy_available !== null) {
                         this.attack(enemy);
-                        this.lastShot = now;
+                        this.lastShot = gameTick;
                         ++this.consumption;
                         if (this.consumption >= shotsPerEnergy) {
                             this.energy_entities.splice(this.energy_entities.indexOf(energy_available), 1);

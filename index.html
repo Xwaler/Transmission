@@ -19,11 +19,13 @@
 <div class="options">
     <table>
         <tr>
-            <th></th>
+            <th><a id="credits">0</a> credits</th>
             <th colspan="3">Upgrades</th>
         </tr>
         <tr>
-            <td><a id="credits">0</a> credits</td>
+            <td><label for="fps">FPS:
+                <input id='fps' onchange="changeFPS(Number(this.value));" size="4" value="60">
+            </label></td>
             <td>Production (lvl <a id="prodLvl">0</a>)</td>
             <td>Efficiency (lvl <a id="effLvl">0</a>)</td>
             <td>Range (lvl <a id="rangeLvl">0</a>)</td>

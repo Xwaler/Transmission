@@ -8,9 +8,11 @@ class Enemy extends Entity {
             x = Math.random() * canvas.width;
             y = Math.random() < .5 ? 0 : canvas.height;
         }
-        super(x, y, enemyRadius);
+        let boss = Math.random() < bossChance;
+        super(x, y, boss ? enemyRadius * 2 : enemyRadius);
         this.color = '#FF0000';
-        this.health = 100;
+        this.max_health = boss ? 100 * 4 : 100
+        this.health = this.max_health;
 
         let diff_x = base.x - this.x, diff_y = base.y - this.y;
         let norm = Math.sqrt((diff_x) ** 2 + (diff_y) ** 2);
@@ -49,7 +51,7 @@ class Enemy extends Entity {
 
         ctx.strokeStyle = this.color;
         ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI * (this.health / 100));
+        ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI * (this.health / this.max_health));
         ctx.stroke();
     }
 }

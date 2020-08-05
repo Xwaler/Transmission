@@ -1,7 +1,7 @@
 class Base extends Transmitter {
     constructor(x, y) {
         super(x, y, baseRadius);
-        this.lastProduced = Date.now();
+        this.lastProduced = gameTick;
         this.health = 100;
     }
 
@@ -14,14 +14,13 @@ class Base extends Transmitter {
     }
 
     update() {
-        const now = Date.now();
-        if (now - this.lastProduced >= produceEvery) {
+        if (gameTick - this.lastProduced >= produceEvery) {
             this.energy_entities.push(new Energy(this));
-            this.lastProduced = now;
+            this.lastProduced = gameTick;
         }
         for (let enemy of enemies) {
             if (this.collideWith(enemy)) {
-                this.health -= 5;
+                this.health -= enemy.health / 20;
                 enemies.splice(enemies.indexOf(enemy), 1);
             }
         }

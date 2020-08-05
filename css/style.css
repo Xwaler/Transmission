@@ -21,6 +21,10 @@ div.options {
     margin: 10px auto auto auto;
 }
 
+input {
+    text-align: center;
+}
+
 table {
     display: table-cell;
     text-align: center;

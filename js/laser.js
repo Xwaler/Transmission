@@ -1,8 +1,8 @@
 class Laser extends Entity {
     constructor(x, y, dx, dy) {
         super(x, y, shotWidth);
-        this.vx = dx * shotSpeed;
-        this.vy = dy * shotSpeed;
+        this.vx = dx;
+        this.vy = dy;
     }
 
     update() {
@@ -22,8 +22,8 @@ class Laser extends Entity {
     }
 
     move() {
-        this.x += this.vx;
-        this.y += this.vy;
+        this.x += this.vx * shotSpeed;
+        this.y += this.vy * shotSpeed;
     }
 
     draw() {
@@ -31,7 +31,10 @@ class Laser extends Entity {
         ctx.lineWidth = this.radius;
         ctx.beginPath();
         ctx.moveTo(this.x, this.y);
-        ctx.lineTo(this.x - (this.vx * relayRadius) / Math.sqrt(2), this.y - (this.vy * relayRadius) / Math.sqrt(2));
+        ctx.lineTo(
+            this.x - (this.vx * relayRadius * Math.sqrt(2)),
+            this.y - (this.vy * relayRadius * Math.sqrt(2))
+        );
         ctx.stroke();
     }
 }

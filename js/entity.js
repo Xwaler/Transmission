@@ -25,7 +25,7 @@ class Transmitter extends Entity {
         this.neighbors = [];
         this.energy_entities = [];
         this.use = false;
-        this.lastSend = Date.now();
+        this.lastSend = gameTick;
     }
 
     need() {
@@ -40,11 +40,11 @@ class Transmitter extends Entity {
         this.energy_entities.splice(this.energy_entities.indexOf(energy_entity), 1);
         energy_entity.setDestination(relay);
         relay.energy_entities.push(energy_entity);
-        this.lastSend = Date.now();
+        this.lastSend = gameTick;
     }
 
     update() {
-        if (this.energy_entities.length > 0 && Date.now() - this.lastSend >= sendEvery) {
+        if (this.energy_entities.length > 0 && gameTick - this.lastSend >= sendEvery) {
             for (let energy_entity of this.energy_entities) {
                 if (energy_entity.destination === null) {
                     let max_need = this.need(), most_in_need = null;

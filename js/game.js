@@ -11,6 +11,24 @@ onselectstart = (e) => {
     e.preventDefault()
 }
 
+let ratio, ratio_w = canvas.width / 1280, ratio_h = canvas.height / 720;
+if (ratio_w < 1 && ratio_h < 1) {
+    ratio = (ratio_w + ratio_h) / 2;
+
+    relayRadius *= ratio;
+    relayRange *= ratio;
+    relayAttackRange *= ratio;
+    baseRadius *= ratio;
+    shotSpeed *= ratio;
+    shotWidth *= ratio;
+    energyRadius *= ratio;
+    maxEnergySpeed *= ratio;
+    energySpeed *= ratio;
+    enemyRadius *= ratio;
+    enemySpeed *= ratio;
+}
+
+let gameTick = 0;
 let base = new Base(Math.floor(canvas.width / 2), Math.floor(canvas.height / 2));
 let relays = [];
 let enemies = [];
@@ -52,7 +70,9 @@ function shuffle(a) {
 }
 
 function tick() {
-    enemySpawnRate -= (.000025 * (enemySpawnRate - minEnemySpawnRate));
+    ++gameTick;
+
+    enemySpawnRate -= (.00002 * (enemySpawnRate - minEnemySpawnRate));
     if (Math.floor(Math.random() * enemySpawnRate) === 0) enemies.push(new Enemy());
 
     shuffle(relays);
@@ -82,18 +102,24 @@ function tick() {
     }
 }
 
-const FPS = 30;
-let interval = setInterval(tick, Math.floor(1 / FPS));
+let FPS = 60;
+let interval = setInterval(tick, Math.floor(1000 / FPS));
 let paused = false;
 
 function pause() {
     if (paused) {
-        interval = setInterval(tick, Math.floor(1 / FPS));
+        interval = setInterval(tick, Math.floor(1000 / FPS));
         paused = false;
     } else {
         clearInterval(interval);
         paused = true;
     }
+}
+
+function changeFPS(value) {
+    FPS = value;
+    clearInterval(interval);
+    interval = setInterval(tick, Math.floor(1000 / FPS))
 }
 
 document.addEventListener('keydown', function (e) {
@@ -109,7 +135,7 @@ function upgradeProduction() {
     if (Number(credits.innerText) >= Number(costProduction.innerText)) {
         credits.innerText -= costProduction.innerText;
         ++prodLvl.innerText;
-        produceEvery -= (.1 * (produceEvery - minProduceEvery));
+        produceEvery -= (.2 * (produceEvery - minProduceEvery));
         costProduction.innerText = ((Math.sqrt(Number(costProduction.innerText)) + 1) ** 2).toString();
     }
 }
@@ -122,6 +148,7 @@ function upgradeEfficiency() {
         credits.innerText -= costEfficiency.innerText;
         ++effLvl.innerText;
         ++shotsPerEnergy;
+        energySpeed += (.1 * (maxEnergySpeed - energySpeed));
         costEfficiency.innerText = ((Math.sqrt(Number(costEfficiency.innerText)) + 2) ** 2).toString();
     }
 }
