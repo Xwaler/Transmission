@@ -1,0 +1,36 @@
+header {
+    background-color: darkgray;
+    margin: -8px -8px 10px -8px;
+}
+
+h1.title {
+    text-align: center;
+    margin: 0;
+    padding: .3rem;
+}
+
+div.canvas {
+    display: block;
+    margin: auto;
+    width: 75vw;
+    height: 75vh;
+}
+
+div.options {
+    display: table;
+    margin: 10px auto auto auto;
+}
+
+table {
+    display: table-cell;
+    text-align: center;
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+th, td {
+    padding: .2rem;
+}

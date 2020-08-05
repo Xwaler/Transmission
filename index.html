@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Transmission</title>
+    <link href="style.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<header>
+    <h1 class="title">~ Transmission ~</h1>
+</header>
+
+<div class="canvas">
+    <canvas id="canvas"></canvas>
+</div>
+
+<div class="options">
+    <table>
+        <tr>
+            <th></th>
+            <th colspan="3">Upgrades</th>
+        </tr>
+        <tr>
+            <td><a id="credits">0</a> credits</td>
+            <td>Production (lvl <a id="prodLvl">0</a>)</td>
+            <td>Efficiency (lvl <a id="effLvl">0</a>)</td>
+            <td>Range (lvl <a id="rangeLvl">0</a>)</td>
+        </tr>
+        <tr>
+            <td>
+                <button id="pause" onclick="pause()">Pause</button>
+            </td>
+            <td>
+                <button onclick="upgradeProduction()">Upgrade for <a id="costProduction">1</a> credit</button>
+            </td>
+            <td>
+                <button onclick="upgradeEfficiency()">Upgrade for <a id="costEfficiency">1</a> credit</button>
+            </td>
+            <td>
+                <button onclick="upgradeRange()">Upgrade for <a id="costRange">1</a> credit</button>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+
+</html>
+
+<script src="shared.js"></script>
+<script src="entity.js"></script>
+<script src="base.js"></script>
+<script src="relay.js"></script>
+<script src="energy.js"></script>
+<script src="enemy.js"></script>
+<script src="laser.js"></script>
+<script src="game.js"></script>
