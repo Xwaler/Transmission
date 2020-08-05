@@ -72,7 +72,7 @@ function shuffle(a) {
 function tick() {
     ++gameTick;
 
-    enemySpawnRate -= (.00002 * (enemySpawnRate - minEnemySpawnRate));
+    enemySpawnRate -= (.00007 * (enemySpawnRate - minEnemySpawnRate));
     if (Math.floor(Math.random() * enemySpawnRate) === 0) enemies.push(new Enemy());
 
     shuffle(relays);
