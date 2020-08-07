@@ -3,7 +3,6 @@ const canvas = document.getElementById('canvas');
 canvas.width = area.clientWidth;
 canvas.height = area.clientHeight;
 const ctx = canvas.getContext("2d");
-ctx.font = "50px Arial";
 ctx.lineWidth = 5;
 ctx.strokeRect(0, 0, canvas.width, canvas.height);
 
@@ -58,25 +57,14 @@ canvas.addEventListener('mousedown', function (e) {
     relays.push(new_relay);
 })
 
-function shuffle(a) {
-    let j, x, i;
-    for (i = a.length - 1; i > 0; i--) {
-        j = Math.floor(Math.random() * (i + 1));
-        x = a[i];
-        a[i] = a[j];
-        a[j] = x;
-    }
-    return a;
-}
+let now = Date.now();
+let lastSec = now;
+let lastTick = gameTick;
+let realFPS = 1;
 
 function tick() {
-    ++gameTick;
-
     enemySpawnRate -= (.00007 * (enemySpawnRate - minEnemySpawnRate));
     if (Math.floor(Math.random() * enemySpawnRate) === 0) enemies.push(new Enemy());
-
-    shuffle(relays);
-    shuffle(enemies);
 
     base.update();
     for (let relay of relays) relay.update();
@@ -94,8 +82,22 @@ function tick() {
     for (let enemy of enemies) enemy.draw();
     for (let shot of shots) shot.draw();
 
+    ++gameTick;
+    now = Date.now();
+    if (now - lastSec >= 1000) {
+        realFPS = gameTick - lastTick;
+        lastSec = now;
+        lastTick = gameTick;
+    }
+
+    ctx.font = "20px Arial";
+    ctx.textAlign = 'left';
+    ctx.fillStyle = '#000000';
+    ctx.fillText(realFPS.toString(), 10, 25);
+
     if (base.health <= 0) {
         clearInterval(interval);
+        ctx.font = "50px Arial";
         ctx.textAlign = 'center';
         ctx.fillStyle = '#000000';
         ctx.fillText('Game Over :(', canvas.width / 2, 60);

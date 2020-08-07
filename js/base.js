@@ -3,6 +3,7 @@ class Base extends Transmitter {
         super(x, y, baseRadius);
         this.lastProduced = gameTick;
         this.health = 100;
+        this.sendCooldown = minProduceEvery;
     }
 
     need() {
@@ -14,14 +15,16 @@ class Base extends Transmitter {
     }
 
     update() {
-        if (gameTick - this.lastProduced >= produceEvery) {
+        if (gameTick - this.lastProduced >= produceEvery && super.canStore()) {
             this.energy_entities.push(new Energy(this));
             this.lastProduced = gameTick;
         }
-        for (let enemy of enemies) {
-            if (this.collideWith(enemy)) {
-                this.health -= enemy.health / 20;
-                enemies.splice(enemies.indexOf(enemy), 1);
+        if (gameTick % 2) {
+            for (let enemy of enemies) {
+                if (this.collideWith(enemy)) {
+                    this.health -= enemy.health / 20;
+                    enemies.splice(enemies.indexOf(enemy), 1);
+                }
             }
         }
         super.update();

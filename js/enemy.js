@@ -28,15 +28,17 @@ class Enemy extends Entity {
 
     update() {
         this.move();
-        for (let relay of relays) {
-            if (this.collideWith(relay)) {
-                for (let neighbor of relay.neighbors) {
-                    neighbor.neighbors.splice(neighbor.neighbors.indexOf(relay), 1);
+        if (gameTick % 2) {
+            for (let relay of relays) {
+                if (this.collideWith(relay)) {
+                    for (let neighbor of relay.neighbors) {
+                        neighbor.neighbors.splice(neighbor.neighbors.indexOf(relay), 1);
+                    }
+                    relays.splice(relays.indexOf(relay), 1);
+                    this.health -= 25;
+                    if (this.health <= 0) enemies.splice(enemies.indexOf(this), 1);
+                    break;
                 }
-                relays.splice(relays.indexOf(relay), 1);
-                this.health -= 25;
-                if (this.health <= 0) enemies.splice(enemies.indexOf(this), 1);
-                break;
             }
         }
     }

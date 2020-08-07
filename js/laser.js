@@ -7,8 +7,9 @@ class Laser extends Entity {
 
     update() {
         this.move();
-        if (this.x < 0 || this.y < 0 || this.x > canvas.width || this.y > canvas.height)
+        if (this.x < 0 || this.y < 0 || this.x > canvas.width || this.y > canvas.height) {
             shots.splice(shots.indexOf(this), 1);
+        }
         for (let enemy of enemies) {
             if (this.collideWith(enemy)) {
                 enemy.health -= shotDamage;
@@ -17,6 +18,7 @@ class Laser extends Entity {
                     ++credits.innerText;
                 }
                 shots.splice(shots.indexOf(this), 1);
+                break;
             }
         }
     }

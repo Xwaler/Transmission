@@ -1,7 +1,7 @@
 const transmitterStorage = 10;
 
 let relayRadius = 12;
-const sendEvery = 12;
+const sendEvery = 16;
 let relayRange = 150;
 let relayAttackRange = 100;
 let shotsPerEnergy = 2;

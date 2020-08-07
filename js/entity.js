@@ -26,6 +26,7 @@ class Transmitter extends Entity {
         this.energy_entities = [];
         this.use = false;
         this.lastSend = gameTick;
+        this.sendCooldown = sendEvery;
     }
 
     need() {
@@ -44,7 +45,7 @@ class Transmitter extends Entity {
     }
 
     update() {
-        if (this.energy_entities.length > 0 && gameTick - this.lastSend >= sendEvery) {
+        if (this.energy_entities.length > 0 && gameTick - this.lastSend >= this.sendCooldown) {
             for (let energy_entity of this.energy_entities) {
                 if (energy_entity.destination === null) {
                     let max_need = this.need(), most_in_need = null;
