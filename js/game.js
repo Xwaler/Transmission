@@ -1,3 +1,5 @@
+document.getElementById('version').innerHTML += VERSION;
+
 const area = document.getElementsByClassName('canvas')[0];
 const canvas = document.getElementById('canvas');
 canvas.width = area.clientWidth;

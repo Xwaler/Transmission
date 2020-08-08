@@ -1,3 +1,5 @@
+const VERSION = '0.5'
+
 const transmitterStorage = 10;
 
 let relayRadius = 12;
